@@ -1,10 +1,10 @@
-﻿@model IEnumerable<PmQL.Models.FmpEvn>
+﻿@model IEnumerable<PmQL.Models.FmpSai>
 
 @{
-    ViewData["Title"] = "FMP_EVN Data";
+    ViewData["Title"] = "FMP_Sai Data";
 }
 
-<h1>Dữ liệu FMP_EVN</h1>
+<h1>Dữ liệu FMP_Sai</h1>
 
 <table class="table table-bordered table-striped">
     <thead>
@@ -67,7 +67,7 @@
         {
             <tr>
                 <td>@item.Ngay</td>
-                <td>@item.Gia</td>
+                <td>FMP</td>
                 <td>@item.ChuKy0h30?.ToString("N1")</td>
                 <td>@item.ChuKy1h?.ToString("N1")</td>
                 <td>@item.ChuKy1h30?.ToString("N1")</td>

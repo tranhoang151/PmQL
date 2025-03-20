@@ -1,3 +1,8 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.EntityFrameworkCore;
+using PmQL.Data;
+using PmQL.Services;
+
 namespace PmQL
 {
     public class Program
@@ -7,7 +12,20 @@ namespace PmQL
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            builder.Services.AddDbContext<PmQlContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+            builder.Services.AddScoped<IFmpEvnService, FmpEvnService>();
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.LoginPath = "/Account/Login";
+                    options.AccessDeniedPath = "/Account/AccessDenied";
+                    options.LogoutPath = "/Account/Logout";
+                    options.Cookie.HttpOnly = true;
+                    options.ExpireTimeSpan = TimeSpan.FromDays(30);
+                });
 
             var app = builder.Build();
 
